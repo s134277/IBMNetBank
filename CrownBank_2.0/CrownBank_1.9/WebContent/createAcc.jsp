@@ -51,7 +51,12 @@ Error: <%= request.getAttribute("status") %>
         <p class="submit"><input type="submit" name="commit" value="Create Account"></p>
       </form>
       <% } %>
+      Note: that currently only the post numbers 3300 and 2800 are accepted!
       
+      <br>
+      
+      You will be asked for administrator verification if you elect to 
+      create the account as an administrator account
     </div>
 
 <div id="footer">
