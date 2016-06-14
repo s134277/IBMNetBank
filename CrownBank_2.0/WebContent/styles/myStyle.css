@@ -1,0 +1,35 @@
+@CHARSET "ISO-8859-1";
+
+#header {
+	height: 15%;
+    background-color:black;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+#nav {
+    line-height:30px;
+    background-color:black;
+    height:900px;
+    width:20%;
+    float:left;
+    padding:5px; 
+}
+#section {
+    width:75%;
+    float:left;
+    padding:10px; 
+}
+#footer {
+	height: 5%;
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px; 
+}
+
+a:link    {color:blue; background-color:transparent; text-decoration:none}
+a:visited {color:blue; background-color:transparent; text-decoration:none}
+a:hover   {color:blue; background-color:transparent; text-decoration:none}
+a:active  {color:blue; background-color:transparent; text-decoration:none}
