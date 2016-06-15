@@ -125,6 +125,17 @@ public class Controller {
 		return user;
 	}
 	
+	public ArrayList<String> getCurrencies(Connection con) throws SQLException, ClassNotFoundException{
+		String sqlQuery = "SELECT \"Currency\" FROM \"DTUGRP03\".\"Valuta\"";
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery(sqlQuery);
+		ArrayList<String> currencies = new ArrayList<String>();
+		while (rs.next()){
+			currencies.add(rs.getString(1));
+		}
+		return currencies;
+	}
+	
 	public void editUserAccount(userData user, Connection con) throws ClassNotFoundException, SQLException{
 		
 		String sqlQuery = "UPDATE \"DTUGRP03\".\"UserAccount\" "
@@ -133,6 +144,14 @@ public class Controller {
 				+user.getCurrency()+"' WHERE \"UserName\" = '"+user.getUsername()+"'";
 	Statement stmt = con.createStatement();
 	stmt.executeUpdate(sqlQuery);
+	}
+	
+	public void editBankAccount(int accNumber,BigDecimal intrest, String currency, Connection con) throws ClassNotFoundException, SQLException{
+		String sqlQuery = "UPDATE \"DTUGRP03\".\"BankAccount\" "
+				+ "SET \"Intrest\" = "+intrest+", \"Currency\" = "+currency
+				+" WHERE \"AccountNumber\" = "+accNumber;
+		Statement stmt = con.createStatement();
+		stmt.executeUpdate(sqlQuery);
 	}
 	
 	

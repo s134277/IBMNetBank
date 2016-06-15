@@ -28,7 +28,6 @@
 <input type = "Submit" value = "View Bank Accounts" />
 </Form>
 
-
 <br>
 
 <Form action = "newBAcc.jsp">

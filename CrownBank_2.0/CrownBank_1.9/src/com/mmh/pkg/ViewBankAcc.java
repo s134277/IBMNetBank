@@ -47,7 +47,6 @@ public class ViewBankAcc extends HttpServlet {
 			e.printStackTrace();
 		}
 		String username = (String)request.getSession().getAttribute("userID");
-		System.out.println(username);
 		
 		Controller control = new Controller();
 		ArrayList<BankAccount> result = null;
