@@ -13,14 +13,14 @@
 
 <br>
 
-<Form action = "deposit.jsp">
+<Form action = "DepositLayout">
 <input type = "Submit" value = "Deposit" />
 </Form>
 
 <br>
 
 <Form action = "withdraw.jsp">
-<input type = "Submit" value = "withdraw" />
+<input type = "Submit" value = "Withdraw" />
 </Form>
 
 <br>

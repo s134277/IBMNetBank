@@ -93,10 +93,6 @@ public class Transaction extends HttpServlet {
 
 		RequestDispatcher rd = sc.getRequestDispatcher("/transaction.jsp");
 
-		if (request.getAttribute("commit") != null) {
-			System.out.println("hallo");
-		}
-
 		rd.forward(request, response);
 	}
 
