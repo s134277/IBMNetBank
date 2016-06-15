@@ -22,6 +22,9 @@
 	</div>
 	<%
 		int accnum = Integer.parseInt(request.getParameter("accnumber"));
+		String currency = (String)request.getParameter("currency");
+		System.out.println(currency);
+		String intrest = (String)request.getParameter("intrest");
 	%>
 	<div id="section">
 		<h1>
@@ -34,21 +37,24 @@
 					<th>Intrest</th>
 					<th>Currency</th>
 				</tr>
-				<td>Current value:</td>
-				<td align="center"><%=request.getParameter("intrest")%></td>
-				<td align="center"><%=request.getParameter("currency")%></td>
 				<tr>
-
+					<td>Current value:</td>
+					<td align="center"><%=intrest%></td>
+					<td align="center"><%=currency%></td>
+				</tr>
+				<tr>
 					<td>New value:</td>
 					<td>
-					<% 
-					if (request.getSession().getAttribute("isAdmin").equals("true"))  {%>
+						<%
+							if (request.getSession().getAttribute("isAdmin").equals("true")) {
+						%>
 						<p>
 							<input type="text" name="intrest" value="" placeholder="Intrest">
-						</p>
-						<%} %>
+						</p> <%
+ 	}
+ %>
 					</td>
-					<td><select name="item">
+					<td><select name="currencyItems">
 							<c:forEach var="currency" items="${currencies}">
 								<option value=${currency} >${currency}</option>
 
@@ -57,7 +63,11 @@
 					<td><input type="Submit" value="Submit changes" /></td>
 					<td>
 						<p>
-							<input type="hidden" name="accnum" value="<%=accnum%>">
+							<input type="hidden" name="accnumber" value="<%=accnum%>">
+						</p>
+						<p>
+							<input type="hidden" name="currentIntrest"
+								value="<%=request.getParameter("intrest")%>">
 						</p>
 					</td>
 				</tr>

@@ -47,7 +47,7 @@
 						</form>
 					</td>
 					<td>
-						<form action = "EditBankAcc">
+						<form action = "EditBankAccLayout">
 						<input type="hidden" name="accnumber"
 						value =${bankaccount.accountnumber} />
          				<input type="hidden" name="intrest"

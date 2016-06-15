@@ -4,15 +4,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Properties;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -20,9 +15,6 @@ import javax.sql.DataSource;
 public class Controller {
 	@Resource(name="jdbc/exampleDS")
 	private static	DataSource ds1; 
-	private static String conUser = "DTU07";
-	private static String conPassword = "FAGP2016";
-
 
 	public String transaction(BigDecimal amount, 
 			int sender, int recipient, String currency, Connection con)
@@ -165,8 +157,8 @@ public class Controller {
 	
 	public void editBankAccount(int accNumber,BigDecimal intrest, String currency, Connection con) throws ClassNotFoundException, SQLException{
 		String sqlQuery = "UPDATE \"DTUGRP03\".\"BankAccount\" "
-				+ "SET \"Intrest\" = "+intrest+", \"Currency\" = "+currency
-				+" WHERE \"AccountNumber\" = "+accNumber;
+				+ "SET \"Intrest\" = "+intrest+", \"Valuta_Currency\" = '"+currency
+				+"' WHERE \"AccountNumber\" = "+accNumber;
 		Statement stmt = con.createStatement();
 		stmt.executeUpdate(sqlQuery);
 	}
