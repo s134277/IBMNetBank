@@ -34,7 +34,6 @@
     </div>
 <% 
 String status = (String)request.getAttribute("status");
-System.out.println(status); 
 if(status!=null) {%>
 
 <font color = red> <%= status%> </font> 

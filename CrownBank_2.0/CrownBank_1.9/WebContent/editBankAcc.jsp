@@ -20,21 +20,49 @@
 	<div id="nav">
 		<%@ include file="framework/nav.jsp"%>
 	</div>
-
+<% int accnum = Integer.parseInt(request.getParameter("accnumber")); %>
 	<div id="section">
 		<h1>
 			Edit Bank Account:
-			<%=request.getParameter("accnumber")%></h1>
-		<table style="width: 100%" align="left">
-			<tr>
-				<th>Intrest</th>
-				<th>Currency</th>
-			</tr>
-			<td align="center"><%=request.getParameter("intrest")%></td>
-			<td align="center"><%=request.getParameter("currency")%></td>
-		</table>
-		<form action="">
+			<%=accnum%></h1>
+		<form action="EditBankAcc">
+			<table style="width: 100%" align="left">
+				<tr>
+					<th></th>
+					<th>Intrest</th>
+					<th>Currency</th>
+				</tr>
+				<td>Current value:</td>
+				<td align="center"><%=request.getParameter("intrest")%></td>
+				<td align="center"><%=request.getParameter("currency")%></td>
+				<tr>
+					
+				<td>New value:</td>
+					<td>
+					<p><input type="text" name="intrest" value="" placeholder="Intrest"></p></td>
+					<td>
+					<select name="item"> 
+					<c:forEach var="currency" items="${currencies}">
+    			<option value= ${currency} >${currency}</option>
+  				
+  				</c:forEach>
+  				</select>	
+					</td>
+					<td>
+					<input type="Submit" value="Submit changes" />
+					</td>
+				</tr>
+			</table>
 		</form>
+		<p><input type="hidden" name="accnum" value=<%= accnum%>> ></p></td>
+	<% String success = request.getParameter("success");	
+	if(success!=null) {%>
+
+<font color = blue> Your account has succesfully been edited </font> 
+
+<% } %>
+					
+
 	</div>
 
 	<div id="footer">Copyright © Michael Romer & Jesper Douglas</div>

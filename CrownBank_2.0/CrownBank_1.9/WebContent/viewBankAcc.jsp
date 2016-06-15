@@ -47,7 +47,7 @@
 						</form>
 					</td>
 					<td>
-						<form action = "editBankAcc.jsp">
+						<form action = "EditBankAcc">
 						<input type="hidden" name="accnumber"
 						value =${bankaccount.accountnumber} />
          				<input type="hidden" name="intrest"
