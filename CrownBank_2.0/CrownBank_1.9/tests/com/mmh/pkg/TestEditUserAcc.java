@@ -98,7 +98,7 @@ public class TestEditUserAcc {
 		try {
 			cont.editUserAccount(user,con);
 		} catch (ClassNotFoundException | SQLException e) {
-			// Checking the nothing changed:
+			// Checking that nothing changed:
 			userData userEdited = cont.getUserInfo(user.getUsername(), con);
 			assertEquals(userEdited.getTelephoneNumber(),911);
 			assertEquals(userEdited.getPostnumber(),2800);

@@ -2,7 +2,6 @@ package com.mmh.pkg;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -28,7 +27,6 @@ public class NewBAcc extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String currency = request.getParameter("currency");
-		BigDecimal intrest = new BigDecimal("3.00");
 		String userID = (String) request.getSession().getAttribute("userID");
 		
 		PrintWriter out = response.getWriter();
@@ -45,7 +43,7 @@ public class NewBAcc extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		String result = control.CreateBankAcc(currency,userID,intrest,con);
+		String result = control.CreateBankAcc(currency,userID,con);
 		
 		String[] results = result.split(";");
 		

@@ -53,7 +53,7 @@ public class TestLogin {
 	}
 	
 	@Test
-	public void TestLoginSuccess(){
+	public void testLoginSuccess(){
 		/**
 		 * Description: Tests that a user account named "JUNITLogin"
 		 * can be verified on the databse, if so, the DB and hence the 
@@ -68,7 +68,7 @@ public class TestLogin {
 	}
 	
 	@Test
-	public void TestLoginFail(){
+	public void testLoginFail(){
 		/**
 		 * Description: Tests that a user account named "JUNITLogin"
 		 * can't be verified on the databse if given the wrong password,
