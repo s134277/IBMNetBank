@@ -28,6 +28,25 @@ public class Controller {
 		cstmt.execute();
 		return cstmt.getString(5);
 	}
+	
+	public String withdraw(int accnum, BigDecimal amount, Connection con)throws SQLException, ClassNotFoundException{
+		CallableStatement cstmt = con.prepareCall("{CALL \"DTUGRP03\".Withdraw(?,?,?)}");
+		cstmt.setInt(1, accnum);
+		cstmt.setBigDecimal(2, amount);
+		cstmt.registerOutParameter(3, java.sql.Types.VARCHAR);
+		cstmt.execute();
+		return cstmt.getString(3);
+	}
+	public String deposit(int accnum, BigDecimal amount, String currency, Connection con)throws SQLException, ClassNotFoundException{
+		CallableStatement cstmt = con.prepareCall("{CALL \"DTUGRP03\".Deposit(?,?,?,?)}");
+		cstmt.setInt(1, accnum);
+		cstmt.setBigDecimal(2, amount);
+		cstmt.setString(3, currency);
+		cstmt.registerOutParameter(4, java.sql.Types.VARCHAR);
+		cstmt.execute();
+		return cstmt.getString(4);
+	}
+	
 	public ArrayList<TransactionBean> transactionHistory(int bankAcc, String currency, Connection con)
 			throws SQLException, ClassNotFoundException {
 		String rateQuery = "SELECT \"Rate\" FROM \"DTUGRP03\".\"Valuta\" " + "WHERE '" + currency + "' = \"Currency\"";

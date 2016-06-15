@@ -1,16 +1,1 @@
-<<<<<<< HEAD
 /com/
-=======
-/TestAddBankAcc.class
-/TestCreateUserAcc.class
-/TestDeleteBankAcc.class
-/TestDeleteUserAcc.class
-/TestEditBankAcc.class
-/TestEditUserAcc.class
-/TestGetUserInfo.class
-/TestLogin.class
-/TestTransactionHistory.class
-/TestTransfer.class
-/com/
-/EditBankAcc.class
->>>>>>> refs/remotes/origin/master
