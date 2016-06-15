@@ -20,7 +20,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/jespe/Documents/IBMshit/db2jcc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/jespe/Documents/IBMshit/db2jcc_license_cisuz.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Michael/Dropbox/Universitet/DTU/6. Semester/02122 Fagprojekt for Softwaretek/IBMmateriale/db2jcc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Michael/Dropbox/Universitet/DTU/6. Semester/02122 Fagprojekt for Softwaretek/IBMmateriale/db2jcc_license_cisuz.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

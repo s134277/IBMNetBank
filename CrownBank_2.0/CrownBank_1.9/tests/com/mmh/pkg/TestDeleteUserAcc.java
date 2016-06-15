@@ -89,9 +89,6 @@ public class TestDeleteUserAcc {
 		String[] results = result.split(";");
 		int accNumber = Integer.parseInt(results[1]);
 		success = cont.deleteBankAcc(accNumber,con);
-		assertEquals(success,1);
-		
-		
-		
+		assertEquals(success,1);	
 	}
 }

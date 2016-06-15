@@ -60,7 +60,6 @@ public class Controller {
 		BigDecimal rate = null;
 		while (rateset.next()) {
 			rate = rateset.getBigDecimal(1);
-			System.out.println("Hej Michael");
 		}
 		rateset.close();
 

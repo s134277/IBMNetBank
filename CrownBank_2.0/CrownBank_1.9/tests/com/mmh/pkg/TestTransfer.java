@@ -4,6 +4,7 @@ package com.mmh.pkg;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -57,23 +58,69 @@ public class TestTransfer {
 	}
 	
 	@Test
-	public void testTransferLocalSuccess(){
+	public void testTransferLocalSuccess() throws ClassNotFoundException, SQLException{
 		/**
 		 * Description: tests for successful transfer between 
 		 * two bank accounts belonging to the same user account
 		 * Also tests that two local accounts with different currencies 
 		 * successfully transfers the appropirate amounts
 		 */
+		
+		// creates bank accounts:
+		String result = cont.CreateBankAcc(user.getCurrency(), user.getUsername(), con);
+		String[] results = result.split(";");
+		int accNumber1 = Integer.parseInt(results[1]);
+		
+		result = cont.CreateBankAcc(user.getCurrency(), user.getUsername(), con);
+		results = result.split(";");
+		int accNumber2 = Integer.parseInt(results[1]);
+		
+		cont.deposit(accNumber1, new BigDecimal(100.00), "USD", con);
+		
+		
+		String status = cont.transaction(new BigDecimal(100.00), accNumber1, accNumber2, "USD", con);
+		assertEquals(status,"Transaction complete");
+		
+		cont.withdraw(accNumber2, new BigDecimal(100.0000), con);
+		cont.deleteBankAcc(accNumber2, con);
+		cont.deleteBankAcc(accNumber1, con);
+		
+		
 	}
 	
 	@Test
-	public void testTransferLocalFail(){
+	public void testTransferLocalFail() throws ClassNotFoundException, SQLException{
 		/**
 		 * Description: Tests that transactions fail if sending account 
 		 * attempts to transfer more than the account balance aswell as 
 		 * failing if attempting to transfer to an account number that 
 		 * does not exist
 		 */
+		
+		// creates bank accounts:
+		String result = cont.CreateBankAcc(user.getCurrency(), user.getUsername(), con);
+		String[] results = result.split(";");
+		int accNumber1 = Integer.parseInt(results[1]);
+		
+		result = cont.CreateBankAcc(user.getCurrency(), user.getUsername(), con);
+		results = result.split(";");
+		int accNumber2 = Integer.parseInt(results[1]);
+		
+		cont.deposit(accNumber1, new BigDecimal(100.00), "USD", con);
+		
+	
+		String status = cont.transaction(new BigDecimal(101.00), accNumber1, accNumber2, "USD", con);
+
+		assertEquals(status,"Insufficient funds");
+
+		
+			cont.withdraw(accNumber2, new BigDecimal(100.0000), con);
+			cont.deleteBankAcc(accNumber2, con);
+			cont.deleteBankAcc(accNumber1, con);
+		
+		
+		
+		
 	}
 	
 	@Test
@@ -82,6 +129,9 @@ public class TestTransfer {
 		 * Description: Tests the same as the local version, but between 
 		 * two accounts.
 		 */
+//		user.setUsername("JUNITLogin2");
+//		cont.CreateAcc(user, con);
+	
 	}
 	
 	@Test

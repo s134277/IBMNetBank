@@ -2,6 +2,7 @@ package com.mmh.pkg;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -21,6 +22,7 @@ public class TestEditBankAcc {
 	private String driverName = "com.ibm.db2.jcc.DB2Driver";
 	private Controller cont = new Controller();
 	private userData user = new userData();
+	private int accNumber;
 	
 	@Before
 	public void setUp() throws ClassNotFoundException, SQLException{
@@ -54,22 +56,42 @@ public class TestEditBankAcc {
 		
 		// Creates the user:
 		cont.CreateAcc(user, con);
+		
+		// creates bank account:
+		String result = cont.CreateBankAcc(user.getCurrency(), user.getUsername(), con);
+		String[] results = result.split(";");
+		accNumber = Integer.parseInt(results[1]);
 	}
 	
 	@Test
-	public void testEditAccountSuccess(){
+	public void testEditAccountSuccess() throws ClassNotFoundException, SQLException {
 		/**
 		 * Description: Tests that interest and currency can be 
 		 * edited for a bank account.
 		 */
+		try {
+			cont.editBankAccount(accNumber, new BigDecimal(5.00), "DKK", con);
+		} catch (ClassNotFoundException | SQLException e) {
+			fail();
+		}
 		
+		cont.deleteBankAcc(accNumber, con);
 	}
 	
 	@Test
-	public void testEditAccountFail(){
+	public void testEditAccountFail() throws ClassNotFoundException, SQLException{
 		/**
 		 * Description: Tests that editing interest and currency 
 		 * fails if given an invalid currency or a negative interest
 		 */
+		
+		try {
+			cont.editBankAccount(accNumber, new BigDecimal(5.00), "yen", con);
+			fail();
+		} catch (ClassNotFoundException | SQLException e) {
+			
+		}
+		
+		int success = cont.deleteBankAcc(accNumber, con);
 	}
 }

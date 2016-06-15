@@ -4,6 +4,7 @@ package com.mmh.pkg;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -74,14 +75,22 @@ public class TestDeleteBankAcc {
 	}
 	
 	@Test
-	public void testDeleteBankAccFail(){
+	public void testDeleteBankAccFail() throws ClassNotFoundException, SQLException{
 		/**
 		 * Description: Creates a user account, adds empty bank account, 
 		 * adds money to the account, attempts to delete the bank account
 		 * ensures that the fail mechanism works properly.
 		 */
 		
+		String depositSuccess = cont.deposit(accNumber, new BigDecimal(20.00), user.getCurrency(), con);
+		assertEquals(depositSuccess,"1");
+		int success = cont.deleteBankAcc(accNumber,con);
+		assertEquals(success,0);
 		
+		String withdrawSuccess = cont.withdraw(accNumber, new BigDecimal(20.00), con);
+		assertEquals(withdrawSuccess,"1");
+		success = cont.deleteBankAcc(accNumber, con);
+		assertEquals(success,1);
 		
 	}
 }

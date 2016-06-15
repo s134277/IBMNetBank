@@ -4,9 +4,11 @@ package com.mmh.pkg;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import org.junit.After;
@@ -21,6 +23,7 @@ public class TestTransactionHistory {
 	private String driverName = "com.ibm.db2.jcc.DB2Driver";
 	private Controller cont = new Controller();
 	private userData user = new userData();
+	private int accNumber;
 	
 	@Before
 	public void setUp() throws ClassNotFoundException, SQLException{
@@ -54,10 +57,45 @@ public class TestTransactionHistory {
 		
 		// Creates the user:
 		cont.CreateAcc(user, con);
+		
+		// creates bank account:
+		String result = cont.CreateBankAcc(user.getCurrency(), user.getUsername(), con);
+		String[] results = result.split(";");
+		accNumber = Integer.parseInt(results[1]);
 	}
 	
 	@Test
 	public void testViewTransactionsSuccess(){
+		/**
+		 * Description: Generates a bank account with a transaction 
+		 * and verifies that the transaction history corresponds with 
+		 * the transaction
+		 */
 		
+		try {
+			cont.deposit(accNumber, new BigDecimal(50.00), "USD", con);
+			//cont.deposit(accNumber, new BigDecimal(100.00), "USD", con);
+		} catch (ClassNotFoundException | SQLException e1) {
+			fail();
+		}
+		
+		ArrayList<TransactionBean> transHist = null;
+		try {
+			transHist = cont.transactionHistory(accNumber, user.getCurrency(), con);
+		} catch (ClassNotFoundException | SQLException e) {
+			fail();
+		}
+		String result1 = transHist.get(0).getAmount().toString();
+		//String result2 = transHist.get(1).getAmount().toString();
+		assertEquals(result1,"50.0000");
+		//assertEquals(result2,"100.0000");
+		
+		try {
+			cont.withdraw(accNumber, new BigDecimal(50.0000), con);
+			cont.deleteBankAcc(accNumber, con);
+		} catch (ClassNotFoundException | SQLException e) {
+			fail();
+		}
+	
 	}
 }

@@ -127,11 +127,4 @@ public class TestCreateUserAcc {
 		assertEquals(result,0);	
 		assertEquals(statusMSG,"City not e");
 	}
-	
-	@After
-	public void cleanUp(){
-		
-	}
-	
-	
 }
