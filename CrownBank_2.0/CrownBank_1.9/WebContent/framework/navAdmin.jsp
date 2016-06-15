@@ -13,6 +13,30 @@
 
 <br>
 
+<Form action = "deposit.jsp">
+<input type = "Submit" value = "Deposit" />
+</Form>
+
+<br>
+
+<Form action = "withdraw.jsp">
+<input type = "Submit" value = "withdraw" />
+</Form>
+
+<br>
+
+<Form action = "Transaction">
+<input type = "Submit" value = "Transfer" />
+</Form>
+
+<br>
+
+<Form action = "ViewBankAcc">
+<input type = "Submit" value = "View Bank Accounts" />
+</Form>
+
+<br>
+
 <Form action = "newBAcc.jsp">
 <input type = "Submit" value = "New Bank Account" />
 </Form>
@@ -26,7 +50,7 @@
 <br>
 
 <Form action = "userHome.jsp">
-<input type = "Submit" value = "Home (own)" />
+<input type = "Submit" value = "Home" />
 </Form>
 
 <br>
