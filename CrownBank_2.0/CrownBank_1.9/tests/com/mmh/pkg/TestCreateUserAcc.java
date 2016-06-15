@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,7 +48,10 @@ public class TestCreateUserAcc {
 		user.setUsername("JUNITLogin");
 				
 		// Ensures there is no old user with this username:
+		
 		cont.deleteuser(user.getUsername(), con);
+		
+		
 	}
 	
 	
@@ -122,6 +126,11 @@ public class TestCreateUserAcc {
 		String statusMSG = results[1];
 		assertEquals(result,0);	
 		assertEquals(statusMSG,"City not e");
+	}
+	
+	@After
+	public void cleanUp(){
+		
 	}
 	
 	

@@ -1,17 +1,19 @@
 package com.mmh.pkg;
 
+// USe case 7
+
 import static org.junit.Assert.*;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestDeleteUserAcc {
+public class TestDeleteBankAcc {
 	private Connection con = null;
 	private String url = "jdbc:db2://192.86.32.54:5040/"
 			+ "DALLASB:retrieveMessagesFromServerOnGetMessage=true;"
@@ -49,49 +51,25 @@ public class TestDeleteUserAcc {
 				
 		// Ensures there is no old user with this username:
 		cont.deleteuser(user.getUsername(), con);
-		// Creates the user for the following tests:
+		
+		// Creates the user:
 		cont.CreateAcc(user, con);
 	}
 	
 	@Test
-	public void testDeleteUserAccSuccess() throws SQLException, ClassNotFoundException{
+	public void testDeleteBankAccSuccess(){
 		/**
-		 * Description: Since we created the account stored in the 
-		 * object "user" in the @Before, we can simply ensure that it exists, 
-		 * delete it and ensure that it no longer exists: 
+		 * Description: Creates a user account, add an empty bank account 
+		 * and delete it, ensure that the bank account no longer exists
 		 */
-		
-		userData user2 = cont.getUserInfo(user.getUsername(), con);
-		assertTrue(user2!=null);
-		
-		cont.deleteuser(user.getUsername(), con);
-		userData user3 = null;
-		try{
-			cont.getUserInfo(user.getUsername(), con);
-		}catch(SQLException e){
-			
-		}
-		assertTrue(user3==null);
-		
 	}
 	
 	@Test
-	public void testDeleteUserAccFail() throws ClassNotFoundException, SQLException{
-		/** Description: user accounts cant be deleted if they have bank 
-		 * accounts that isn't deleted before hand.
+	public void testDeleteBankAccFail(){
+		/**
+		 * Description: Creates a user account, adds empty bank account, 
+		 * adds money to the account, attempts to delete the bank account
+		 * ensures that the fail mechanism works properly.
 		 */
-		String result = cont.CreateBankAcc("USD", user.getUsername(), con);
-		int success = cont.deleteuser(user.getUsername(), con);
-		
-		assertEquals(success,0);
-		
-		// Cleans up the created bank acc
-		String[] results = result.split(";");
-		int accNumber = Integer.parseInt(results[1]);
-		success = cont.deleteBankAcc(accNumber,con);
-		assertEquals(success,1);
-		
-		
-		
 	}
 }

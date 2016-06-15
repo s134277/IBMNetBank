@@ -79,20 +79,18 @@ public class Controller {
 		return cstmt.getInt(2);
 	}
 	
-	public static void deleteBankAcc(int AccNumber) 
+	public int deleteBankAcc(int AccNumber,Connection con) 
 			throws SQLException, ClassNotFoundException {
-		Connection con = null;
-		try{
-			con=ds1.getConnection(conUser,conPassword);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		CallableStatement cstmt = con.prepareCall("{CALL \"DTUGRP03\".DeleteBankAcc(?,?)}");	
 		cstmt.setInt(1, AccNumber);
 		cstmt.registerOutParameter(2, java.sql.Types.INTEGER);
-		cstmt.execute();
-		System.out.println(cstmt.getInt(2));
+		try{
+			cstmt.execute();
+		} catch(SQLException e){
+			return 0;
+		}
+		
+		return cstmt.getInt(2);
 	}
 	
 	public userData getUserInfo(String username, Connection con) throws SQLException {
@@ -107,12 +105,10 @@ public class Controller {
 		
 		while (rs.next()){
 			if(rs.getString(5).equals("Client")){
-				System.out.println("User detected as a client");
 				user.setAdmin(false);
 				user.setType("Client");
 			}else{
 				user.setAdmin(true);
-				System.out.println("User detected as an admin");
 				user.setType("Administrator");
 			}
 		user.setFullName(rs.getString(2));
@@ -220,25 +216,23 @@ public class Controller {
 		} 
 	}
 
-	public String CreateBankAcc(String currency, String userID, BigDecimal intrest, Connection con) {
+	public String CreateBankAcc(String currency, String userID, Connection con) {
 		
 		CallableStatement cstmt;
 		
 		try {
-			cstmt = con.prepareCall("{CALL \"DTUGRP03\".CreateBankAccount(?,?,?,?,?)}");
+			cstmt = con.prepareCall("{CALL \"DTUGRP03\".CreateBankAccount(?,?,?,?)}");
 			cstmt.setString(1, userID);
-		 	cstmt.setBigDecimal(2, intrest);
-		 	cstmt.setString(3, currency);
+		 	cstmt.setString(2, currency);
+		 	cstmt.registerOutParameter(3, java.sql.Types.INTEGER);
 		 	cstmt.registerOutParameter(4, java.sql.Types.INTEGER);
-		 	cstmt.registerOutParameter(5, java.sql.Types.INTEGER);
 		 	cstmt.execute();
 		 	
-		 	return cstmt.getInt(4) + ";" + cstmt.getInt(5);
+		 	return cstmt.getInt(3) + ";" + cstmt.getInt(4);
 		 	
 		} catch (SQLException e) {
 			String status = "An sql exception was thrown by the database";
-			e.printStackTrace();
-			return 0 + ";" + 0;
+			return 0 + ";" + status;
 		} 
 	}
 
