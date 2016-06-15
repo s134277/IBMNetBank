@@ -58,11 +58,16 @@ public class EditBankAcc extends HttpServlet {
 		
 		if (request.getParameter("item") != null){
 		int accNum = Integer.parseInt(request.getParameter("accnum"));
-		BigDecimal chintrest = new BigDecimal(request.getParameter("intrest"));
-		String chcurrency = request.getParameter("item");
+		BigDecimal intrest = null;
+		if (request.getParameter("intrest") != null){
+		intrest = new BigDecimal(request.getParameter("intrest"));
+		} else{
+			
+		}
+		String currency = request.getParameter("item");
 		
 		try {
-			control.editBankAccount(accNum, chintrest, chcurrency, con);
+			control.editBankAccount(accNum, intrest, currency, con);
 			request.setAttribute("success", "true");		
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
