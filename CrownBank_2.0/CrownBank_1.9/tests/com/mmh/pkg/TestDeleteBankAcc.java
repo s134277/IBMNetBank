@@ -21,6 +21,7 @@ public class TestDeleteBankAcc {
 	private String driverName = "com.ibm.db2.jcc.DB2Driver";
 	private Controller cont = new Controller();
 	private userData user = new userData();
+	private int accNumber;
 	
 	@Before
 	public void setUp() throws ClassNotFoundException, SQLException{
@@ -54,14 +55,22 @@ public class TestDeleteBankAcc {
 		
 		// Creates the user:
 		cont.CreateAcc(user, con);
+		
+		String result = cont.CreateBankAcc(user.getCurrency(), user.getUsername(), con);
+		String[] results = result.split(";");
+		accNumber = Integer.parseInt(results[1]);
 	}
 	
 	@Test
-	public void testDeleteBankAccSuccess(){
+	public void testDeleteBankAccSuccess() throws ClassNotFoundException, SQLException{
 		/**
 		 * Description: Creates a user account, add an empty bank account 
 		 * and delete it, ensure that the bank account no longer exists
 		 */
+		
+		// tests that the bank account can be deleted:
+		int success = cont.deleteBankAcc(accNumber,con);
+		assertEquals(success,1);
 	}
 	
 	@Test
@@ -71,5 +80,8 @@ public class TestDeleteBankAcc {
 		 * adds money to the account, attempts to delete the bank account
 		 * ensures that the fail mechanism works properly.
 		 */
+		
+		
+		
 	}
 }

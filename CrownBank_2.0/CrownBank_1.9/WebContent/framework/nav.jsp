@@ -1,7 +1,3 @@
-<% 
-//String userID = (String) request.getSession().getAttribute("userID") 
-%>
-
 <center>
 
 <br>

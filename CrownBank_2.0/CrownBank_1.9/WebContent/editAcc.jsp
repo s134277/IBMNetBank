@@ -3,8 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <% 
 	String userID = (String)session.getAttribute("userID");
-	System.out.println(userID); 
-
+	String isAdmin = (String)request.getSession().getAttribute("isAdmin");
 %>
 <html>
 <head>
@@ -17,9 +16,15 @@
 		<img src="pictures/CrownBankLogo2.png" alt="Logo" width="800" height="140">
 	</div>
 
-	<div id="nav">
-		<%@include file="framework/nav.jsp" %>
-	</div>
+<%if(isAdmin.equals("true")){ %>
+<div id="nav">
+<%@include file="framework/navAdmin.jsp" %>
+</div>
+<% } else{ %>
+<div id="nav">
+<%@include file="framework/nav.jsp" %>
+</div>
+<% } %>
 
 	<div id="section">
       	<h1>Edit your account</h1>
