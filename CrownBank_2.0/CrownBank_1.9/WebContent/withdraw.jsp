@@ -56,7 +56,6 @@
 	<%
 		String success = (String) request.getAttribute("success");
 		String status = (String) request.getAttribute("status");
-		System.out.println(success);
 		if (success != null && success.equals("false")) {
 	%>
 	<font color=red> <%=status%>
