@@ -56,8 +56,8 @@ public class ViewBankAcc extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		};
-		
-		
+		String success = (String) request.getAttribute("success");
+		request.setAttribute("success", success);
 		request.setAttribute("bankaccounts", result);
 		ServletContext sc = this.getServletContext();
 		
