@@ -52,7 +52,7 @@ public class EditBankAcc extends HttpServlet {
 		Controller control = new Controller();
 
 		int accNum = Integer.parseInt(request.getParameter("accnumber"));
-		BigDecimal intrest = null;
+		BigDecimal intrest;
 		if (request.getParameter("intrest") != null) {
 			intrest = new BigDecimal(request.getParameter("intrest"));
 			request.setAttribute("intrest", intrest);

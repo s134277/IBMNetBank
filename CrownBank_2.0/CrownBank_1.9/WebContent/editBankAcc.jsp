@@ -48,7 +48,7 @@
 							if (request.getSession().getAttribute("isAdmin").equals("true")) {
 						%>
 						<p>
-							<input type="text" name="intrest" value="" placeholder="Intrest">
+							<input type="text" name="intrest" value="<%=intrest%>" placeholder="Intrest">
 						</p> <%
  	}
  %>
@@ -66,7 +66,7 @@
 						</p>
 						<p>
 							<input type="hidden" name="currentIntrest"
-								value="<%=request.getParameter("intrest")%>">
+								value="<%=intrest%>">
 						</p>
 					</td>
 				</tr>
