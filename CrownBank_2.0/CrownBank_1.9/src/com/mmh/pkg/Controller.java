@@ -245,7 +245,6 @@ public class Controller {
 
 	public String CreateBankAcc(String currency, String userID, Connection con) {
 		CallableStatement cstmt;
-		
 		try {
 			cstmt = con.prepareCall("{CALL \"DTUGRP03\".CreateBankAccount(?,?,?,?)}");
 			cstmt.setString(1, userID);

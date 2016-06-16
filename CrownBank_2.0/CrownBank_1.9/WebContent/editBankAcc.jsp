@@ -22,9 +22,8 @@
 	</div>
 	<%
 		int accnum = Integer.parseInt(request.getParameter("accnumber"));
-		String currency = (String)request.getParameter("currency");
-		System.out.println(currency);
-		String intrest = (String)request.getParameter("intrest");
+		String currency = (String) request.getParameter("currency");
+		String intrest = (String) request.getParameter("intrest");
 	%>
 	<div id="section">
 		<h1>
@@ -60,7 +59,7 @@
 
 							</c:forEach>
 					</select></td>
-					<td><input type="Submit" value="Submit changes" /></td>
+					<td><input type="Submit" value="Submit Changes" /></td>
 					<td>
 						<p>
 							<input type="hidden" name="accnumber" value="<%=accnum%>">
@@ -73,6 +72,11 @@
 				</tr>
 			</table>
 		</form>
+						<form action="DeleteBankAcc">
+							<input type="Submit" value="Delete Account" /> 
+							<input type="hidden" name="accnum" value="<%=accnum%>" />
+						</form>
+			
 
 		<%
 			String success = request.getParameter("success");

@@ -73,6 +73,20 @@
 			</c:forEach>
 		</table>
 		</form>
+		<%
+			String success = request.getParameter("success");
+			System.out.println(success);
+			if (success != null && success.equals("true")) {
+		%>
+
+		<font color=blue> Your account has succesfully been deleted </font>
+
+		<%
+			} else if (success != null && success.equals("false") ){
+		%>
+		<font color=red> Account balance has to be 0 </font>
+		<%} %>
+	
 	</div>
 
 	<div id="footer">Copyright © Michael Romer & Jesper Douglas</div>
