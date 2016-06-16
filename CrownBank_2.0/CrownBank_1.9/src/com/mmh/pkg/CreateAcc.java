@@ -25,6 +25,7 @@ public class CreateAcc extends HttpServlet {
         super();
     }
 	
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext sc = this.getServletContext();
 		RequestDispatcher rd = sc.getRequestDispatcher("/createAcc.jsp");
@@ -47,11 +48,11 @@ public class CreateAcc extends HttpServlet {
 			request.setAttribute("badPostalCode", "true");
 		}
 		
-		String userID =(String)request.getParameter("userID");
-		String password =(String)request.getParameter("password1");
-		String passwordConfirm =(String)request.getParameter("password2");
-		String isAdmin =(String)request.getParameter("isAdmin");
-		String currency =(String)request.getParameter("currency");
+		String userID =request.getParameter("userID");
+		String password =request.getParameter("password1");
+		String passwordConfirm =request.getParameter("password2");
+		String isAdmin =request.getParameter("isAdmin");
+		String currency =request.getParameter("currency");
 		String type;
 		if(isAdmin!=null){
 			type = "Administrator";
@@ -116,6 +117,7 @@ public class CreateAcc extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

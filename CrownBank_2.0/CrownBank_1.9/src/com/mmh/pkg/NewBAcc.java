@@ -25,6 +25,7 @@ public class NewBAcc extends HttpServlet {
         super();
     }
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String currency = request.getParameter("currency");
 		String userID = (String) request.getSession().getAttribute("userID");
@@ -62,6 +63,7 @@ public class NewBAcc extends HttpServlet {
 		
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

@@ -26,6 +26,7 @@ public class EditAcc extends HttpServlet {
         super();
     }
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext sc = this.getServletContext();
 		RequestDispatcher rd = sc.getRequestDispatcher("/editAcc.jsp");
@@ -49,9 +50,9 @@ public class EditAcc extends HttpServlet {
 		}
 		
 		String password = user.getPassword();
-		String reqPassword = (String)request.getParameter("password1");
+		String reqPassword = request.getParameter("password1");
 		if(!reqPassword.isEmpty() && reqPassword!="" && reqPassword!=null){
-			String reqPassword2 = (String)request.getParameter("password2");
+			String reqPassword2 = request.getParameter("password2");
 			if(reqPassword.equals(reqPassword2)){
 				password = reqPassword;
 			}else{
@@ -60,12 +61,12 @@ public class EditAcc extends HttpServlet {
 			}
 		}
 		int tel = user.getTelephoneNumber();
-		String reqTel = (String)request.getParameter("tel");
+		String reqTel = request.getParameter("tel");
 		if(!reqTel.isEmpty() && reqTel!= "" && reqTel!=null){
 			tel = Integer.parseInt(reqTel);
 		} 
 		int post = user.getPostnumber();
-		String reqPost = (String)request.getParameter("post");
+		String reqPost = request.getParameter("post");
 		if(!reqPost.isEmpty() && reqPost!= "" && reqPost!=null){
 			post = Integer.parseInt(reqPost);
 		}
@@ -86,6 +87,7 @@ public class EditAcc extends HttpServlet {
 		rd.forward(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

@@ -13,8 +13,6 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 public class Controller {
-	@Resource(name="jdbc/exampleDS")
-	private static	DataSource ds1; 
 
 	public String transaction(BigDecimal amount, 
 			int sender, int recipient, String currency, Connection con)
@@ -246,7 +244,6 @@ public class Controller {
 	}
 
 	public String CreateBankAcc(String currency, String userID, Connection con) {
-		
 		CallableStatement cstmt;
 		
 		try {

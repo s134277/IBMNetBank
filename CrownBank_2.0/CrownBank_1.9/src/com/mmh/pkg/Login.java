@@ -28,19 +28,17 @@ public class Login extends HttpServlet {
         super();
     }
    
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection con = null;
 		String conUser = "DTU07";
 		String conPassword = "FAGP2016";
 		try{
 			con=ds1.getConnection(conUser,conPassword);
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		
-//		PrintWriter out = response.getWriter();
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
 	
@@ -75,6 +73,7 @@ public class Login extends HttpServlet {
 		rd.forward(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

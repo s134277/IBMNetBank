@@ -1,8 +1,6 @@
 package com.mmh.pkg;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.ArrayList;
 
 public class TransactionBean {
 	private int sender;
@@ -10,10 +8,6 @@ public class TransactionBean {
 	private BigDecimal amount;
 	private String date;
 	private String time;
-	
-	public TransactionBean(){
-		
-	}
 
 	public int getSender() {
 		return sender;

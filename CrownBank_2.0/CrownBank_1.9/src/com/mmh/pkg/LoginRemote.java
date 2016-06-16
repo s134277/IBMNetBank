@@ -28,6 +28,7 @@ public class LoginRemote extends HttpServlet {
     }
 
 	
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection con = null;
 		String conUser = "DTU07";
@@ -73,6 +74,7 @@ public class LoginRemote extends HttpServlet {
 		rd.forward(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

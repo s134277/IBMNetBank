@@ -118,9 +118,6 @@ public class TestTransfer {
 			cont.deleteBankAcc(accNumber2, con);
 			cont.deleteBankAcc(accNumber1, con);
 		
-		
-		
-		
 	}
 	
 	@Test

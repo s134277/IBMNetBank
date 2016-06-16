@@ -36,6 +36,7 @@ public class EditBankAcc extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Connection con = null;
@@ -53,13 +54,13 @@ public class EditBankAcc extends HttpServlet {
 		int accNum = Integer.parseInt(request.getParameter("accnumber"));
 		BigDecimal intrest = null;
 		if (request.getParameter("intrest") != null) {
-			intrest = new BigDecimal((String) request.getParameter("intrest"));
+			intrest = new BigDecimal(request.getParameter("intrest"));
 			request.setAttribute("intrest", intrest);
 		} else {
-			intrest = new BigDecimal((String) request.getParameter("currentIntrest"));
+			intrest = new BigDecimal(request.getParameter("currentIntrest"));
 			request.setAttribute("intrest", intrest);
 		}
-		String currency = (String) request.getParameter("currencyItems");
+		String currency = request.getParameter("currencyItems");
 
 		try {
 			control.editBankAccount(accNum, intrest, currency, con);
@@ -79,6 +80,7 @@ public class EditBankAcc extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub

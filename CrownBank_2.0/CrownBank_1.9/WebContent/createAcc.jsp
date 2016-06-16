@@ -44,7 +44,6 @@ Error: <%= request.getAttribute("status") %>
        		<select name="currency">
     			<option value="USD">USD</option>
     			<option value="DKK">DKK</option>
-    			<option value="GBP">GBP</option>
   			</select><p>
   			(Default is USD, you can always change your currency)
  

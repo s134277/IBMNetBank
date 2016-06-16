@@ -25,6 +25,7 @@ public class VerifyAdmin extends HttpServlet {
     }
 
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ServletContext sc = this.getServletContext();
@@ -40,8 +41,8 @@ public class VerifyAdmin extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		String userID =(String)request.getParameter("loginVerify");
-		String password =(String)request.getParameter("passwordVerify");
+		String userID =request.getParameter("loginVerify");
+		String password =request.getParameter("passwordVerify");
 		
 		Controller control = new Controller();
 		try {
@@ -58,6 +59,7 @@ public class VerifyAdmin extends HttpServlet {
 		
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
