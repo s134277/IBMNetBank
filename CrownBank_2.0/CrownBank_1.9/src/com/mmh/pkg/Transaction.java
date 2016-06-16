@@ -66,7 +66,6 @@ public class Transaction extends HttpServlet {
 			//Doing the transfer from inserted data
 			try {
 				transaction = control.transaction(amount, accnum, recipient, currency, con);
-				System.out.println(transaction);
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

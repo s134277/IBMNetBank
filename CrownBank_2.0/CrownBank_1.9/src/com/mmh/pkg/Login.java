@@ -43,7 +43,12 @@ public class Login extends HttpServlet {
 		String password = request.getParameter("password");
 	
 		Controller control = new Controller();
-		int result = control.Login(login,password,con);
+		int result = 0;
+		try {
+			result = control.Login(login,password,con);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 		
 		ServletContext sc = this.getServletContext();
 		request.setAttribute("user", login);
@@ -56,7 +61,6 @@ public class Login extends HttpServlet {
 			try {
 				isAdmin = control.AdminCheck(login, password, con);
 			} catch (SQLException e) {
-				System.out.println("SQL exception thrown when trying to determine if the user is admin");
 				e.printStackTrace();
 			}
 			request.setAttribute("failedLogin", "false");

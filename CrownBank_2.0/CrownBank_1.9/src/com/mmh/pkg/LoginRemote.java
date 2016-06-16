@@ -64,8 +64,6 @@ public class LoginRemote extends HttpServlet {
 				rd.forward(request, response);
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL exception thrown when lookingfor entered user");
-			System.out.println("user likely to not exist");
 			request.setAttribute("failedLogin", "true");
 			rd = sc.getRequestDispatcher("/remoteAdmin.jsp");
 			rd.forward(request, response);

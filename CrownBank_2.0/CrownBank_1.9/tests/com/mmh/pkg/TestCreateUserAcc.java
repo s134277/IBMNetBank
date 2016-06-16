@@ -48,10 +48,7 @@ public class TestCreateUserAcc {
 		user.setUsername("JUNITLogin");
 				
 		// Ensures there is no old user with this username:
-		
 		cont.deleteuser(user.getUsername(), con);
-		
-		
 	}
 	
 	
@@ -61,7 +58,7 @@ public class TestCreateUserAcc {
 		
 		/**
 		 * Description: Tests that a user account named "JUNITLogin"
-		 * can be created on the databse, if so, the DB and hence the 
+		 * can be created on the database, if so, the DB and hence the 
 		 * controller returns the string "1".
 		 */
 			
@@ -80,7 +77,6 @@ public class TestCreateUserAcc {
 		assertEquals(user2.getTelephoneNumber(),user.getTelephoneNumber());
 		assertEquals(user2.getType(),user.getType());
 		assertEquals(user2.getUsername(),user.getUsername());
-		
 		
 	}
 	

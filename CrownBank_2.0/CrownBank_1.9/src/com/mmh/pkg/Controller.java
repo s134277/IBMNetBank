@@ -92,11 +92,7 @@ public class Controller {
 		CallableStatement cstmt = con.prepareCall("{CALL \"DTUGRP03\".DeleteBankAcc(?,?)}");	
 		cstmt.setInt(1, AccNumber);
 		cstmt.registerOutParameter(2, java.sql.Types.INTEGER);
-		try{
-			cstmt.execute();
-		} catch(SQLException e){
-			return 0;
-		}
+		cstmt.execute();
 		
 		return cstmt.getInt(2);
 	}
@@ -168,6 +164,7 @@ public class Controller {
 			acc.setCurrency(rs.getString(4));
 			bankaccs.add(acc);
 		}
+		updateBankAccounts(bankaccs, con);
 		return bankaccs;
 	}
 	
@@ -183,7 +180,7 @@ public class Controller {
 		Statement stmt = con.createStatement();
 		for (int i = 0; i < bankaccs.size(); i++) {
 			//Fetches the rate for the currencies in the database
-			String sqlQuery = "SELECT \"rate\" FROM \"DTUGRP03\".\"City\" WHERE \"Currency\" = '"+bankaccs.get(i)+"'";
+			String sqlQuery = "SELECT \"Rate\" FROM \"DTUGRP03\".\"Valuta\" WHERE \"Currency\" = '"+bankaccs.get(i).getCurrency()+"'";
 			ResultSet rs = stmt.executeQuery(sqlQuery);
 			BigDecimal bg = new BigDecimal("100.0");
 			while (rs.next()) {
@@ -197,50 +194,37 @@ public class Controller {
 	stmt.close();
 	}
 
-	public int Login(String login, String password, Connection con) {
+	public int Login(String login, String password, Connection con) throws SQLException {
 		
 		CallableStatement cstmt;
-		try {
-			cstmt = con.prepareCall("{CALL \"DTUGRP03\".Verification(?,?,?)}");
-			cstmt.setString(1, login);
-		 	cstmt.setString(2, password);
-		 	cstmt.registerOutParameter(3, java.sql.Types.INTEGER);
-		 	cstmt.execute();
-		 	return cstmt.getInt(3);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return -1;
-		} 
-		
+		cstmt = con.prepareCall("{CALL \"DTUGRP03\".Verification(?,?,?)}");
+		cstmt.setString(1, login);
+		cstmt.setString(2, password);
+		cstmt.registerOutParameter(3, java.sql.Types.INTEGER);
+		cstmt.execute();
+		 return cstmt.getInt(3);
 	}
 
-	public String CreateAcc(userData user, Connection con) {
+	public String CreateAcc(userData user, Connection con) throws SQLException {
 		CallableStatement cstmt;
 		int result = 0;
 		
-		try {
-			cstmt = con.prepareCall("{CALL \"DTUGRP03\".CreateUserAccount(?,?,?,?,?,?,?,?,?)}");
-			cstmt.setString(1, user.getUsername());
-		 	cstmt.setString(2, user.getFullName());
-		 	cstmt.setInt(3, user.getTelephoneNumber());
-		 	cstmt.setString(4, user.getPassword());
-		 	cstmt.setString(5, user.getType());
-		 	cstmt.setInt(6, user.getPostnumber());
-		 	cstmt.setString(7, user.getCurrency());
-		 	cstmt.registerOutParameter(8, java.sql.Types.VARCHAR);
-		 	cstmt.registerOutParameter(9, java.sql.Types.INTEGER);
-		 	cstmt.execute();
+		cstmt = con.prepareCall("{CALL \"DTUGRP03\".CreateUserAccount(?,?,?,?,?,?,?,?,?)}");
+		cstmt.setString(1, user.getUsername());
+		cstmt.setString(2, user.getFullName());
+		cstmt.setInt(3, user.getTelephoneNumber());
+		cstmt.setString(4, user.getPassword());
+		cstmt.setString(5, user.getType());
+		cstmt.setInt(6, user.getPostnumber());
+		cstmt.setString(7, user.getCurrency());
+		cstmt.registerOutParameter(8, java.sql.Types.VARCHAR);
+		cstmt.registerOutParameter(9, java.sql.Types.INTEGER);
+		cstmt.execute();
 
-		 	result = cstmt.getInt(9);
-		 	String status = cstmt.getString(8);
+		result = cstmt.getInt(9);
+		String status = cstmt.getString(8);
 		 	
-		 	return result + ";" + status;
-		 	
-		} catch (SQLException e) {
-			String status = "An sql exception was thrown by the database";
-			e.printStackTrace();
-			return result + ";" + status;
-		} 
+		return result + ";" + status;
 	}
 
 	public String CreateBankAcc(String currency, String userID, Connection con) {

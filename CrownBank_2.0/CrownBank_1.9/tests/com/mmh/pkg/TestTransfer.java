@@ -58,12 +58,10 @@ public class TestTransfer {
 	}
 	
 	@Test
-	public void testTransferLocalSuccess() throws ClassNotFoundException, SQLException{
+	public void testTransferSuccess() throws ClassNotFoundException, SQLException{
 		/**
 		 * Description: tests for successful transfer between 
-		 * two bank accounts belonging to the same user account
-		 * Also tests that two local accounts with different currencies 
-		 * successfully transfers the appropirate amounts
+		 * two bank accounts
 		 */
 		
 		// creates bank accounts:
@@ -89,7 +87,7 @@ public class TestTransfer {
 	}
 	
 	@Test
-	public void testTransferLocalFail() throws ClassNotFoundException, SQLException{
+	public void testTransferFail() throws ClassNotFoundException, SQLException{
 		/**
 		 * Description: Tests that transactions fail if sending account 
 		 * attempts to transfer more than the account balance aswell as 
@@ -112,30 +110,14 @@ public class TestTransfer {
 		String status = cont.transaction(new BigDecimal(101.00), accNumber1, accNumber2, "USD", con);
 
 		assertEquals(status,"Insufficient funds");
-
 		
-			cont.withdraw(accNumber2, new BigDecimal(100.0000), con);
+		
+		status = cont.transaction(new BigDecimal(100.00), accNumber1, -1, "USD", con);
+		assertEquals(status,"Bank account doesn't exist");
+		
+			cont.withdraw(accNumber1, new BigDecimal(100.0000), con);
 			cont.deleteBankAcc(accNumber2, con);
 			cont.deleteBankAcc(accNumber1, con);
 		
-	}
-	
-	@Test
-	public void testTransferRemoteSuccess(){
-		/**
-		 * Description: Tests the same as the local version, but between 
-		 * two accounts.
-		 */
-//		user.setUsername("JUNITLogin2");
-//		cont.CreateAcc(user, con);
-	
-	}
-	
-	@Test
-	public void testTransferRemoteFail(){
-		/**
-		 * Description: Tests the same as the local version, but between 
-		 * two accounts.
-		 */
 	}
 }

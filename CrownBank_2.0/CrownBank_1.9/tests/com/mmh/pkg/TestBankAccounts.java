@@ -5,12 +5,14 @@ import static org.junit.Assert.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestLogin {
+public class TestBankAccounts {
 	private Connection con = null;
 	private String url = "jdbc:db2://192.86.32.54:5040/"
 			+ "DALLASB:retrieveMessagesFromServerOnGetMessage=true;"
@@ -48,51 +50,45 @@ public class TestLogin {
 				
 		// Ensures there is no old user with this username:
 		cont.deleteuser(user.getUsername(), con);
-		// Creates the user for the following tests:
+		
+		// Creates the user:
 		cont.CreateAcc(user, con);
 	}
 	
 	@Test
-	public void testLoginSuccess() throws SQLException{
+	public void testGetCurrencies() throws ClassNotFoundException, SQLException{
 		/**
-		 * Description: Tests that a user account named "JUNITLogin"
-		 * can be verified on the databse, if so, the DB and hence the 
-		 * controller returns the int "1". 
-		 * Verification is the method used for validating user credentials 
-		 * when logging in. 
-		 * We also use this test to validate the method isAdmin, which is 
-		 * used by the view when logging in
-		 * 
+		 * Description: Tests that the standard currency USD can be retirved
+		 * This ensures that the getCurrencies method works
 		 */
+		ArrayList<String> currencies = cont.getCurrencies(con);
+		boolean success = false;
 		
-		int result = cont.Login(user.getUsername(), user.getPassword(), con);
-		
-		assertEquals(result,1);
-		
-		String isAdmin = cont.AdminCheck(user.getUsername(), user.getPassword(), con);
-		assertEquals(isAdmin,"true");
-		
+		if(currencies.contains("USD")) success = true;
+		assertTrue(success);
 	}
 	
 	@Test
-	public void testLoginFail() throws SQLException{
+	public void testGetBankAcc() throws ClassNotFoundException, SQLException{
 		/**
-		 * Description: Tests that a user account named "JUNITLogin"
-		 * can't be verified on the databse if given the wrong password,
-		 * or if given a non-existing username, if so, the DB and hence the 
-		 * controller returns the int "0". 
+		 * Description: Tests that getBankAcc is empty if the user has no bankaccounts yet
+		 * Tests that the list is non-empty after adding an account
+		 * Tests that the list becomes empty after deleting the account
 		 */
+		ArrayList<BankAccount> bankaccs = cont.getBankAcc(user.getUsername(), con);
+		assertTrue(bankaccs.isEmpty());
 		
-		user.setPassword("wrongPassword");
-		int result1 = cont.Login(user.getUsername(), user.getPassword(), con);
-		assertEquals(result1,0);
+		String result = cont.CreateBankAcc(user.getCurrency(), user.getUsername(), con);
+		String[] results = result.split(";");
+		int accNumber = Integer.parseInt(results[1]);
+		bankaccs = cont.getBankAcc(user.getUsername(), con);
+		assertTrue(!bankaccs.isEmpty());
 		
-		// Sets the username to a user that doesn't exist:
-		user.setUsername("NonExistingUser");
-		// Resets the password:
-		user.setPassword("testPW");
-		int result2 = cont.Login(user.getUsername(), user.getPassword(), con);
-		assertEquals(result2,0);
+		cont.deleteBankAcc(accNumber, con);
+		bankaccs = cont.getBankAcc(user.getUsername(), con);
+		assertTrue(bankaccs.isEmpty());
 		
 	}
+	
+	
 }

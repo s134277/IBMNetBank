@@ -75,7 +75,6 @@
 		</form>
 		<%
 			String success = request.getParameter("success");
-			System.out.println(success);
 			if (success != null && success.equals("true")) {
 		%>
 

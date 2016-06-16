@@ -51,7 +51,6 @@ With account number: <%= request.getAttribute("accNumber") %>
        		<select name="currency">
     			<option value="USD">USD</option>
     			<option value="DKK">DKK</option>
-    			<option value="GBP">GBP</option>
   			</select>
         <p class="submit"><input type="submit" name="commit" value="Create Account"></p>
       </form>

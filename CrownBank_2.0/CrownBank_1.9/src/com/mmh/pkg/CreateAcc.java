@@ -89,7 +89,13 @@ public class CreateAcc extends HttpServlet {
 				e.printStackTrace();
 			}
 			Controller control = new Controller();
-			String result = control.CreateAcc(user,con);
+			String result = "0;0";
+			try {
+				result = control.CreateAcc(user,con);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			String[] results = result.split(";");
 			

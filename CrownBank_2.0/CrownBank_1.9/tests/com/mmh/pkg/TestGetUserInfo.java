@@ -53,7 +53,7 @@ public class TestGetUserInfo {
 	}	
 	
 	@Test
-	public void testGetUserInfoSuccess() throws SQLException{
+	public void testGetUserInfoSuccess() throws SQLException, ClassNotFoundException{
 		/**
 		 * Description: Verifies that the helper method getUserInfo() in the controller
 		 * actually works. This method is essential for many functionalities 
@@ -69,5 +69,24 @@ public class TestGetUserInfo {
 		assertEquals(user2.getTelephoneNumber(),user.getTelephoneNumber());
 		assertEquals(user2.getType(),user.getType());
 		assertEquals(user2.getUsername(),user.getUsername());
+		
+		user.setUsername("JUNITLoginClient");
+		user.setAdmin(false);
+		user.setType("Client");
+		cont.CreateAcc(user, con);
+		userData user3 = cont.getUserInfo(user.getUsername(), con);
+		assertEquals(user3.getCurrency(),user.getCurrency());
+		assertEquals(user3.getFullName(),user.getFullName());
+		assertEquals(user3.getPassword(),user.getPassword());
+		assertEquals(user3.getPostnumber(),user.getPostnumber());
+		assertEquals(user3.getTelephoneNumber(),user.getTelephoneNumber());
+		assertEquals(user3.getType(),user.getType());
+		assertEquals(user3.getUsername(),user.getUsername());
+	
+		String isAdmin = cont.AdminCheck(user.getUsername(), user.getPassword(), con);
+		assertEquals(isAdmin,"false");
+		
+		cont.deleteuser(user.getUsername(), con);
+		
 	}
 }
