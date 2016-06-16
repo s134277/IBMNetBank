@@ -2,7 +2,6 @@ package com.mmh.pkg;
 
 import static org.junit.Assert.*;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

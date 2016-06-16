@@ -9,9 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-
 public class Controller {
 
 	public String transaction(BigDecimal amount, 
