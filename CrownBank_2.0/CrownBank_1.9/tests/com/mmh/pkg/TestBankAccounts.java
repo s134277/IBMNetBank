@@ -68,6 +68,19 @@ public class TestBankAccounts {
 	}
 	
 	@Test
+	public void testGetPostnumbers() throws ClassNotFoundException, SQLException{
+		/**
+		 * Description: Tests that postnumbers can be retirved
+		 * This ensures that the getPostnumbers method works
+		 */
+		ArrayList<String> postnumbers = cont.getPostnumbers(con);
+		boolean success = false;
+		
+		if(postnumbers.contains("2800")) success = true;
+		assertTrue(success);
+	}
+	
+	@Test
 	public void testGetBankAcc() throws ClassNotFoundException, SQLException{
 		/**
 		 * Description: Tests that getBankAcc is empty if the user has no bankaccounts yet

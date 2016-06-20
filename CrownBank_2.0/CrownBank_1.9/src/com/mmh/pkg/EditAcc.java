@@ -29,7 +29,7 @@ public class EditAcc extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext sc = this.getServletContext();
-		RequestDispatcher rd = sc.getRequestDispatcher("/editAcc.jsp");
+		RequestDispatcher rd = sc.getRequestDispatcher("EditUserAccLayout");
 		
 		Connection con = null;
 		String conUser = "DTU07";
@@ -66,12 +66,12 @@ public class EditAcc extends HttpServlet {
 			tel = Integer.parseInt(reqTel);
 		} 
 		int post = user.getPostnumber();
-		String reqPost = request.getParameter("post");
+		String reqPost = request.getParameter("postnumbers");
 		if(!reqPost.isEmpty() && reqPost!= "" && reqPost!=null){
 			post = Integer.parseInt(reqPost);
 		}
 		
-		user.setCurrency(request.getParameter("currency"));
+		user.setCurrency(request.getParameter("currencyItems"));
 		user.setPassword(password);
 		user.setTelephoneNumber(tel);
 		user.setPostnumber(post);

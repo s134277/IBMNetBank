@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <% 
 	String userID = (String)session.getAttribute("userID");
@@ -35,21 +36,29 @@
 <font color = red> Something went wrong while processing you request.. <br> </font> 
 <% } else{ %>
 <font color = blue> Your changes has succesfully saved! <br> </font> 
+
 <% } }%>
 
-<%if(request.getAttribute("success")==null)  %>
+<%if(request.getAttribute("success")==null){  %>
     <br>  	
       	Please enter new data in the fields you want to change:
       	<form method="post" action="EditAcc">
         	<p><input type="text" name="tel" value="" placeholder="Telephone number"></p>
-        	<p><input type="text" name="post" value="" placeholder="Postal number"></p>
+        	<select name="postnumbers">
+							<c:forEach var="postnumber" items="${postnumbers}">
+								<option value=${postnumber} >${postnumber}</option>
+
+							</c:forEach>
+			</select>
        		<p><input type="password" name="password1" value="" placeholder="New password"></p>
        		<p><input type="password" name="password2" value="" placeholder="Repeat new password*"></p>
        		Currency:
-       		<select name="currency">
-    			<option value="USD">USD</option>
-    			<option value="DKK">DKK</option>
-  			</select>
+       		<select name="currencyItems">
+							<c:forEach var="currency" items="${currencies}">
+								<option value=${currency} >${currency}</option>
+
+							</c:forEach>
+			</select>
  
         <p class="submit"><input type="submit" name="commit" value="Save changes"></p>
       </form>
@@ -58,7 +67,7 @@
 	<form method="post" action="DeleteAcc">
         <p class="submit"><input type="submit" name="commit" value="Delete Account"></p>
       </form>
-      
+      <% } %>
     </div>
 
 <div id="footer">

@@ -7,7 +7,7 @@
 
 <br>
 
-<Form action = "editAcc.jsp">
+<Form action = "EditUserAccLayout">
 <input type = "Submit" value = "Edit Account" />
 </Form>
 

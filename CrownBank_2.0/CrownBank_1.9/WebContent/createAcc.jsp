@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,16 +36,24 @@ Error: <%= request.getAttribute("status") %>
       	<form method="post" action="verifyAdmin.jsp">
         	<p><input type="text" name="name" value="" placeholder="Full name*" required></p>
         	<p><input type="text" name="tel" value="" placeholder="Telephone number*" required></p>
-        	<p><input type="text" name="post" value="" placeholder="Postal number*" required></p>
+        	<p> <select name="postnumber">
+							<c:forEach var="postnumber" items="${postnumbers}">
+								<option value=${postnumber} >${postnumber}</option>
+
+							</c:forEach>
+			</select>
+        	</p>
         	<p><input type="text" name="userID" value="" placeholder="Desired username*" required></p>
        		<p><input type="password" name="password1" value="" placeholder="Password*" required></p>
        		<p><input type="password" name="password2" value="" placeholder="Repeat password*" required></p>
        		<p><input type="checkbox" name="isAdmin" value="isAdmin" >Administrator (default: regular user)</p>
        		Your desired default display currency:
        		<select name="currency">
-    			<option value="USD">USD</option>
-    			<option value="DKK">DKK</option>
-  			</select><p>
+							<c:forEach var="currency" items="${currencies}">
+								<option value=${currency} >${currency}</option>
+
+							</c:forEach>
+			</select><p>
   			(Default is USD, you can always change your currency)
  
         <p class="submit"><input type="submit" name="commit" value="Create Account"></p>

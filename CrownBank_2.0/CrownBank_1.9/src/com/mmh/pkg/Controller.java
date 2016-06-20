@@ -133,6 +133,17 @@ public class Controller {
 		return currencies;
 	}
 	
+	public ArrayList<String> getPostnumbers(Connection con) throws SQLException, ClassNotFoundException{
+		String sqlQuery = "SELECT \"Postnumber\" FROM \"DTUGRP03\".\"City\"";
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery(sqlQuery);
+		ArrayList<String> postnumbers = new ArrayList<String>();
+		while (rs.next()){
+			postnumbers.add(rs.getString(1));
+		}
+		return postnumbers;
+	}
+	
 	public void editUserAccount(userData user, Connection con) throws ClassNotFoundException, SQLException{
 		
 		String sqlQuery = "UPDATE \"DTUGRP03\".\"UserAccount\" "

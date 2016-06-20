@@ -8,7 +8,7 @@
 
 <br>
 
-<Form action = "createAcc.jsp">
+<Form action = "CreateAccLayout">
 <input type = "Submit" value = "Create Account" />
 </Form>
 

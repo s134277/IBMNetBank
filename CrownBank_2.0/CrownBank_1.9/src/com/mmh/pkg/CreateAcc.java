@@ -42,7 +42,7 @@ public class CreateAcc extends HttpServlet {
 		}
 		
 		try{
-			post = Integer.parseInt(request.getParameter("post"));
+			post = Integer.parseInt(request.getParameter("postnumber"));
 			request.setAttribute("badPostalCode", "false");
 		} catch(Exception e){
 			request.setAttribute("badPostalCode", "true");
