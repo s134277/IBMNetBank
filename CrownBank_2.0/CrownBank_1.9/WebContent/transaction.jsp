@@ -34,9 +34,10 @@
 	<div id="section">
       	<h1>Transaction</h1>
       	<form action="Transaction">
+      		From account:
         	<select name="item">
     		<c:forEach var="bankaccount" items="${bankaccounts}">
-    			<option value= {${bankaccount.accountnumber}:${bankaccount.currency}} >${bankaccount.accountnumber}</option>
+    			<option value= {${bankaccount.accountnumber}:${bankaccount.currency}} >${bankaccount.accountnumber} (${bankaccount.currency})</option>
   			</c:forEach>	
   			</select>
         	<p><input type="text" name="recipient" value="" placeholder="Recipient" ></p>
