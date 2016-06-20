@@ -157,7 +157,7 @@ public class Controller {
 	
 	public ArrayList<BankAccount> getBankAcc(String username, Connection con)
 			throws ClassNotFoundException, SQLException {
-		String sqlQuery = "SELECT \"AccountNumber\", \"Balance\", " + "\"Intrest\", \"Valuta_Currency\" FROM "
+		String sqlQuery = "SELECT \"AccountName\", \"AccountNumber\", \"Balance\", " + "\"Intrest\", \"Valuta_Currency\" FROM "
 				+ "\"DTUGRP03\".\"BankAccount\" INNER JOIN "
 				+ "\"DTUGRP03\".\"AccountAssociativity\" ON \"AccountNumber\" = "
 				+ "\"BankAccount_AccountNumber\" WHERE \"UserAccount_UserName\" = '" + username + "'";
@@ -166,19 +166,21 @@ public class Controller {
 		ArrayList<BankAccount> bankaccs = new ArrayList<BankAccount>();
 		while (rs.next()) {
 			BankAccount acc = new BankAccount();
-			acc.setAccountnumber(rs.getInt(1));
-			acc.setBalance(rs.getBigDecimal(2));
-			acc.setIntrest(rs.getBigDecimal(3));
-			acc.setCurrency(rs.getString(4));
+			acc.setAccountname(rs.getString(1));
+			acc.setAccountnumber(rs.getInt(2));
+			acc.setBalance(rs.getBigDecimal(3));
+			acc.setIntrest(rs.getBigDecimal(4));
+			acc.setCurrency(rs.getString(5));
 			bankaccs.add(acc);
 		}
 		updateBankAccounts(bankaccs, con);
 		return bankaccs;
 	}
 	
-	public void editBankAccount(int accNumber,BigDecimal intrest, String currency, Connection con) throws ClassNotFoundException, SQLException{
+	public void editBankAccount(String accname, int accNumber,BigDecimal intrest, String currency, Connection con) throws ClassNotFoundException, SQLException{
 		String sqlQuery = "UPDATE \"DTUGRP03\".\"BankAccount\" "
 				+ "SET \"Intrest\" = "+intrest+", \"Valuta_Currency\" = '"+currency
+				+ "', \"AccountName\" = '" + accname 
 				+"' WHERE \"AccountNumber\" = "+accNumber;
 		Statement stmt = con.createStatement();
 		stmt.executeUpdate(sqlQuery);
@@ -235,17 +237,18 @@ public class Controller {
 		return result + ";" + status;
 	}
 
-	public String CreateBankAcc(String currency, String userID, Connection con) {
+	public String CreateBankAcc(String name, String currency, String userID, Connection con) {
 		CallableStatement cstmt;
 		try {
-			cstmt = con.prepareCall("{CALL \"DTUGRP03\".CreateBankAccount(?,?,?,?)}");
+			cstmt = con.prepareCall("{CALL \"DTUGRP03\".CreateBankAccount(?,?,?,?,?)}");
 			cstmt.setString(1, userID);
-		 	cstmt.setString(2, currency);
-		 	cstmt.registerOutParameter(3, java.sql.Types.INTEGER);
+			cstmt.setString(2,name);
+		 	cstmt.setString(3, currency);
 		 	cstmt.registerOutParameter(4, java.sql.Types.INTEGER);
+		 	cstmt.registerOutParameter(5, java.sql.Types.INTEGER);
 		 	cstmt.execute();
 		 	
-		 	return cstmt.getInt(3) + ";" + cstmt.getInt(4);
+		 	return cstmt.getInt(4) + ";" + cstmt.getInt(5);
 		 	
 		} catch (SQLException e) {
 			String status = "An sql exception was thrown by the database";

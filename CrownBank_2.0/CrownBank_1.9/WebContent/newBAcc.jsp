@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% 
 	String userID = (String)session.getAttribute("userID");
 	String isAdmin = (String)request.getSession().getAttribute("isAdmin");
@@ -47,11 +47,14 @@ With account number: <%= request.getAttribute("accNumber") %>
     <br>  	
       	Please select the currency you want the bank account in:
       	<form method="post" action="NewBAcc">
+      		<input type="text" name="name" value="" placeholder="Bank account name" required>
       		<input type=hidden id="thisField" name="inputName">
        		<select name="currency">
-    			<option value="USD">USD</option>
-    			<option value="DKK">DKK</option>
-  			</select>
+							<c:forEach var="currency" items="${currencies}">
+								<option value=${currency} >${currency}</option>
+
+							</c:forEach>
+			</select>
         <p class="submit"><input type="submit" name="commit" value="Create Account"></p>
       </form>
 

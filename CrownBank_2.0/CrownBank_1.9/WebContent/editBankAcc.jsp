@@ -24,25 +24,30 @@
 		int accnum = Integer.parseInt(request.getParameter("accnumber"));
 		String currency = (String) request.getParameter("currency");
 		String intrest = (String) request.getParameter("intrest");
+		String accname = (String) request.getParameter("accname");
 	%>
 	<div id="section">
 		<h1>
 			Edit Bank Account:
-			<%=accnum%></h1>
+			<%=accname%> : <%=accnum%></h1>
 		<form action="EditBankAcc">
 			<table style="width: 100%" align="left">
 				<tr>
 					<th></th>
+					<th>Name</th>
 					<th>Intrest</th>
 					<th>Currency</th>
 				</tr>
 				<tr>
 					<td>Current value:</td>
+					<td></td>
 					<td align="center"><%=intrest%></td>
 					<td align="center"><%=currency%></td>
 				</tr>
 				<tr>
 					<td>New value:</td>
+					<td><input type="text" name="accname" value="<%=accname%>" placeholder="Account name"></td>
+						
 					<td>
 						<%
 							if (request.getSession().getAttribute("isAdmin").equals("true")) {

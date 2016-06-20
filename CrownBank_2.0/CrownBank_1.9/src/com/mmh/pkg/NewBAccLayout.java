@@ -1,9 +1,9 @@
 package com.mmh.pkg;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
@@ -15,27 +15,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-@WebServlet("/NewBAcc")
-public class NewBAcc extends HttpServlet {
+/**
+ * Servlet implementation class NewBAccLayoyt
+ */
+@WebServlet("/NewBAccLayout")
+public class NewBAccLayout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Resource(name="jdbc/exampleDS")
-	private	DataSource ds1;
-	
-    public NewBAcc() {
+	private	DataSource ds1;    
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public NewBAccLayout() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
-	@Override
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String currency = request.getParameter("currency");
-		String accName = request.getParameter("name");
-		String userID = (String) request.getSession().getAttribute("userID");
-		
-		PrintWriter out = response.getWriter();
-		ServletContext sc = this.getServletContext();
-		RequestDispatcher rd = sc.getRequestDispatcher("/newBAcc.jsp");
-		
-		Controller control = new Controller();
 		Connection con = null;
 		String conUser = "DTU07";
 		String conPassword = "FAGP2016";
@@ -45,29 +44,31 @@ public class NewBAcc extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		String result = control.CreateBankAcc(accName,currency,userID,con);
 		
-		String[] results = result.split(";");
+		Controller control = new Controller();
+		ArrayList<String> currencies = new ArrayList<String>();
+		try {
+			currencies = control.getCurrencies(con);		
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		};
+		request.setAttribute("currencies", currencies);
 		
+		ServletContext sc = this.getServletContext();
 		
-		 if(Integer.parseInt(results[0])!=0){
-		 	out.println("Successfully registered");
-		 	request.setAttribute("success", "true");
-		 	request.setAttribute("accNumber", results[1]);
-		 } else{
-		 	out.println("Unsuccesfully registered, with error: " + results[1]);
-		 	request.setAttribute("success", "false");
-			request.setAttribute("accNumber", null);
-		}
-		 
-		 rd.forward(request, response); 
+		RequestDispatcher rd = sc.getRequestDispatcher("/newBAcc.jsp");
 		
+
+		rd.forward(request, response);
 	}
 
-	@Override
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
 }
-

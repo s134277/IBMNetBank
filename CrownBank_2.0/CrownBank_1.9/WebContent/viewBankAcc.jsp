@@ -37,19 +37,21 @@
 		<h1>Bank Accounts</h1>
 		<table style="width: 100%" align="left">
 			<tr>
-				<th>Account Number</th>
+				<th>Account : account number</th>
 				<th>Balance</th>
 				<th>Intrest</th>
 				<th>Currency</th>
 			</tr>
 			<c:forEach var="bankaccount" items="${bankaccounts}">
 				<tr>
-					<td align="center">${bankaccount.accountnumber}</td>
+					<td align="center">${bankaccount.accountname} : ${bankaccount.accountnumber}</td>
 					<td align="center">${bankaccount.balance}</td>
 					<td align="center">${bankaccount.intrest}</td>
 					<td align="center">${bankaccount.currency}</td>
 					<td>
 						<form action="TransactionHistory">
+							<input type = "hidden" name = "accname" 
+								value =${bankaccount.accountname } /> 
 							<input type="hidden" name="accnumber"
 								value=${bankaccount.accountnumber } /> 
 							<input type="hidden"
@@ -62,6 +64,8 @@
 						<form action = "EditBankAccLayout">
 						<input type="hidden" name="accnumber"
 						value =${bankaccount.accountnumber} />
+						<input type = "hidden" name = "accname" 
+								value =${bankaccount.accountname } /> 
          				<input type="hidden" name="intrest"
 								value=${bankaccount.intrest} /> 
 							<input type="hidden"

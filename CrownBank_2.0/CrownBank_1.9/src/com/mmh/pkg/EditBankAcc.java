@@ -50,7 +50,7 @@ public class EditBankAcc extends HttpServlet {
 		}
 
 		Controller control = new Controller();
-
+		String accname = (String)request.getParameter("accname");
 		int accNum = Integer.parseInt(request.getParameter("accnumber"));
 		BigDecimal intrest;
 		if (request.getParameter("intrest") != null) {
@@ -63,7 +63,7 @@ public class EditBankAcc extends HttpServlet {
 		String currency = request.getParameter("currencyItems");
 
 		try {
-			control.editBankAccount(accNum, intrest, currency, con);
+			control.editBankAccount(accname, accNum, intrest, currency, con);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

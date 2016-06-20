@@ -26,7 +26,7 @@
 
 <br>
 
-<Form action = "newBAcc.jsp">
+<Form action = "NewBAccLayout">
 <input type = "Submit" value = "New Bank Account" />
 </Form>
 

@@ -7,6 +7,7 @@ public class BankAccount {
 	private BigDecimal balance;
 	private BigDecimal intrest;
 	private String currency;
+	private String accountname;
 	
 	public int getAccountnumber() {
 		return accountnumber;
@@ -31,5 +32,11 @@ public class BankAccount {
 	}
 	public void setCurrency(String currency) {
 		this.currency = currency;
+	}
+	public String getAccountname() {
+		return accountname;
+	}
+	public void setAccountname(String accountName) {
+		this.accountname = accountName;
 	}
 	}

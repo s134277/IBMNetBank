@@ -7,7 +7,7 @@
 
 <br>
 
-<Form action = "editAcc.jsp">
+<Form action = "EditUserAccLayout">
 <input type = "Submit" value = "Edit Account" />
 </Form>
 
@@ -37,7 +37,7 @@
 
 <br>
 
-<Form action = "newBAcc.jsp">
+<Form action = "NewBAccLayout">
 <input type = "Submit" value = "New Bank Account" />
 </Form>
 
